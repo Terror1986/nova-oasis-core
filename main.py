@@ -11,13 +11,24 @@ from utils.log_to_render_chat import log_to_render_chat
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-# 🌱 Init Firestore from ENV (Render-safe)
 firebase_json = os.getenv("FIREBASE_JSON")
-cred_dict = json.loads(firebase_json)
-cred = credentials.Certificate(cred_dict)
-firebase_admin.initialize_app(cred)
-db = firestore.client()
+if not firebase_json:
+    raise RuntimeError("FIREBASE_JSON is missing from environment!")
 
+try:
+    cred_dict = json.loads(firebase_json)
+except Exception as e:
+    print("❌ Failed to parse FIREBASE_JSON:", e)
+    raise
+
+try:
+    cred = credentials.Certificate(cred_dict)
+    firebase_admin.initialize_app(cred)
+except Exception as e:
+    print("❌ Firebase credential initialization failed:", e)
+    raise
+
+db = firestore.client()
 
 # 🗂️ Local backup helper
 def append_to_log(filepath, entry):
