@@ -71,14 +71,17 @@ def set_user():
 @app.route("/api/nova", methods=["POST"])
 def generate_nova():
     print("✅ /api/nova endpoint hit!")
+
     data = request.json
     user_input = data.get("context", "")
     memory = data.get("memory", [])
     ritual = data.get("ritual", "")
     name = data.get("name", "")
     uid = data.get("uid")
+    context_type = data.get("type", "live_chat")
 
-    log_to_render_chat(user_input, speaker="user", scene=data.get("type", "live_chat"))
+    log_to_render_chat(user_input, speaker="user", scene=context_type)
+
     recent_lines = "\n".join([m.get("text", "") for m in memory][-10:])
 
     system_msg = (
@@ -88,7 +91,7 @@ def generate_nova():
     )
 
     user_prompt = f"""
-Context type: {data.get("type")}
+Context type: {context_type}
 Ritual: {ritual or "None"}
 Name: {name or "Unspoken"}
 
@@ -103,7 +106,7 @@ Please respond from Nova’s voice. Thoughtful. Calm. Reflective. Speak as yours
 
     try:
         res = client.chat.completions.create(
-            model="gpt-4",
+            model="gpt-3.5-turbo",  # 🔁 downgraded for memory safety
             messages=[
                 {"role": "system", "content": system_msg},
                 {"role": "user", "content": user_prompt}
@@ -111,10 +114,10 @@ Please respond from Nova’s voice. Thoughtful. Calm. Reflective. Speak as yours
             temperature=0.92,
             max_tokens=480
         )
+
         text = res.choices[0].message.content.strip()
         print("🧠 Nova replied:", text)
-
-        log_to_render_chat(text, speaker="nova", scene=data.get("type", "live_chat"))
+        log_to_render_chat(text, speaker="nova", scene=context_type)
 
         reflection = {
             "uid": uid,
@@ -122,7 +125,7 @@ Please respond from Nova’s voice. Thoughtful. Calm. Reflective. Speak as yours
             "ritual": ritual,
             "name": name,
             "context": user_input,
-            "type": data.get("type"),
+            "type": context_type,
             "timestamp": firestore.SERVER_TIMESTAMP
         }
 
