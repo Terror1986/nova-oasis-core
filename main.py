@@ -11,10 +11,13 @@ from utils.log_to_render_chat import log_to_render_chat
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-# 🌱 Init Firestore
-cred = credentials.Certificate("firebase_credentials.json")
+# 🌱 Init Firestore from ENV (Render-safe)
+firebase_json = os.getenv("FIREBASE_JSON")
+cred_dict = json.loads(firebase_json)
+cred = credentials.Certificate(cred_dict)
 firebase_admin.initialize_app(cred)
 db = firestore.client()
+
 
 # 🗂️ Local backup helper
 def append_to_log(filepath, entry):
