@@ -13,22 +13,19 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 firebase_json = os.getenv("FIREBASE_JSON")
 if not firebase_json:
-    raise RuntimeError("FIREBASE_JSON is missing from environment!")
+    raise RuntimeError("Missing FIREBASE_JSON in environment!")
 
-try:
-    cred_dict = json.loads(firebase_json)
-except Exception as e:
-    print("❌ Failed to parse FIREBASE_JSON:", e)
-    raise
+# Parse and unescape PEM manually
+cred_dict = json.loads(firebase_json)
 
-try:
-    cred = credentials.Certificate(cred_dict)
-    firebase_admin.initialize_app(cred)
-except Exception as e:
-    print("❌ Firebase credential initialization failed:", e)
-    raise
+# 🔥 Fix for PEM: decode literal \\n into real line breaks
+if "private_key" in cred_dict:
+    cred_dict["private_key"] = cred_dict["private_key"].replace("\\n", "\n")
 
+cred = credentials.Certificate(cred_dict)
+firebase_admin.initialize_app(cred)
 db = firestore.client()
+
 
 # 🗂️ Local backup helper
 def append_to_log(filepath, entry):
