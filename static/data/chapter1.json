@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1.1",
+    "title": "Nova’s First Presence",
+    "image": "arrival_glade_2.jpg.png",
+    "caption": "A golden trail winds through twilight trees, stars still watching.",
+    "transition": "fade",
+    "sound": "soft_glow.mp3"
+  },
+  {
+    "id": "1.2",
+    "title": "Ritual Choice",
+    "image": "ritual_choice_closeup.jpg",
+    "caption": "Three stones hum softly. Their glow seems to whisper a question only you can hear.",
+    "transition": "dissolve",
+    "sound": "resonance_chimes.mp3"
+  },
+  {
+    "id": "1.3",
+    "title": "Name & Memory",
+    "image": "ritual_choice_emblem.jpg.png",
+    "caption": "A quiet screen presents three truths: remember, forget, or find. The choice is yours.",
+    "transition": "fade",
+    "sound": "memory_glow.mp3"
+  }
+]

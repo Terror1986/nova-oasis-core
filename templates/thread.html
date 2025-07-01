@@ -1,0 +1,168 @@
+<!-- thread.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nova's Memory Thread</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(180deg, #0a0d1a 0%, #05070f 100%);
+      font-family: 'Inter', 'Georgia', serif;
+      color: #e6e6f0;
+      margin: 0;
+      padding: 3rem 1.5rem 5rem;
+      overflow-x: hidden;
+      animation: fadeInPage 0.8s ease-in-out both;
+    }
+
+    @keyframes fadeInPage {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .memory-thread {
+      max-width: 860px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.02);
+      padding: 2.5rem;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.06);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 60px rgba(200,200,255,0.03);
+    }
+
+    .thread-label {
+      font-size: 2rem;
+      text-align: center;
+      color: #d8e8ff;
+      margin-bottom: 0.6rem;
+      text-shadow: 0 0 12px rgba(180,200,255,0.1);
+    }
+
+    .thread-subtitle {
+      text-align: center;
+      font-style: italic;
+      color: #99bbee;
+      opacity: 0.75;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+
+    .filter-bar {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .filter-btn {
+      background: rgba(255,255,255,0.05);
+      border: none;
+      padding: 0.6rem 1.1rem;
+      margin: 0.3rem;
+      color: #aaccff;
+      font-weight: 500;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: rgba(255,255,255,0.1);
+      color: #ffffff;
+    }
+
+    #nova-thread-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .thread-entry {
+      padding: 1.1rem 1.4rem;
+      margin-bottom: 1.2rem;
+      background: rgba(255, 255, 255, 0.025);
+      border-left: 4px solid #88aaff;
+      border-radius: 14px;
+      transition: background 0.3s ease;
+    }
+
+    .thread-entry:hover {
+      background: rgba(255,255,255,0.045);
+    }
+
+    .timestamp {
+      font-size: 0.82rem;
+      opacity: 0.6;
+      margin-top: 0.5rem;
+    }
+
+    .memory-actions {
+      margin-top: 0.6rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .memory-actions button {
+      background: rgba(255, 255, 255, 0.04);
+      color: #cceeff;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .memory-actions button:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: scale(1.05);
+    }
+
+    .highlighted {
+      background: rgba(255, 255, 255, 0.06) !important;
+      box-shadow: 0 0 12px rgba(255, 255, 180, 0.25);
+    }
+
+    /* Floating return button */
+    .back-to-oasis {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      font-size: 0.95rem;
+      background: rgba(255,255,255,0.05);
+      color: #aaccee;
+      padding: 0.5rem 0.9rem;
+      border-radius: 8px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(3px);
+      transition: all 0.2s ease;
+      z-index: 100;
+    }
+    .back-to-oasis:hover {
+      background: rgba(255,255,255,0.1);
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <a href="/" class="back-to-oasis">← Back to Nova</a>
+
+  <div id="nova-thread" class="memory-thread">
+    <h3 class="thread-label">Nova's Memory Thread</h3>
+    <p class="thread-subtitle">These are the echoes Nova carries from your shared journey.</p>
+
+    <div class="filter-bar" id="filter-bar">
+      <!-- Filter buttons injected via JS -->
+    </div>
+
+    <ul id="nova-thread-list"></ul>
+  </div>
+
+  <script src="{{ url_for('static', filename='reflection_log.js') }}"></script>
+</body>
+</html>

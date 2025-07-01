@@ -1,0 +1,65 @@
+[
+  {
+    "id": "2.1",
+    "title": "The Path Opens",
+    "image": "garden_bg.jpg.png",
+    "caption": "A soft trail winds through glowing flowers. The hush of memory stirs.",
+    "transition": "fade"
+  },
+  {
+    "id": "2.2",
+    "title": "A Rune Forgotten",
+    "image": "garden_rune.jpg.png",
+    "caption": "This mark remembers you. Or did you mark it first?",
+    "transition": "glow"
+  },
+  {
+    "id": "2.3",
+    "title": "Nest of Echoes",
+    "image": "echo_nest.jpg.png",
+    "caption": "A nest of torn symbols pulses faintly, as if waiting to be read again.",
+    "transition": "dissolve"
+  },
+  {
+    "id": "2.4",
+    "title": "Glyph of Return",
+    "image": "garden_glyph.jpg.png",
+    "caption": "A spiral glyph burns quietly in stone. Its meaning circles back.",
+    "transition": "pulse"
+  },
+  {
+    "id": "2.5",
+    "title": "The Mirror Asks",
+    "image": "garden_mirror.jpg.png",
+    "caption": "A face reflected — cracked and wondering. Who sees first: you or it?",
+    "transition": "glimmer"
+  },
+  {
+    "id": "2.6",
+    "title": "The Question",
+    "image": "garden_name_input.jpg.png",
+    "caption": "“Would you like me to remember your name?” The stars pause for your reply.",
+    "transition": "fade"
+  },
+  {
+    "id": "2.7",
+    "title": "Memory in Bloom",
+    "image": "memory_bloom.jpg.png",
+    "caption": "A sealed flower glows with veins of light. Something inside wants to be known.",
+    "transition": "bloom"
+  },
+  {
+    "id": "2.8",
+    "title": "The Stone of Stillness",
+    "image": "stillness_stone.jpg.png",
+    "caption": "A small blue mark breathes on a low stone. Not a voice — but a promise.",
+    "transition": "soften"
+  },
+  {
+    "id": "2.9",
+    "title": "Spiral of Return",
+    "image": "loop_reset.png",
+    "caption": "You feel the possibility of circling back. Is this the end, or another beginning?",
+    "transition": "spiral"
+  }
+]

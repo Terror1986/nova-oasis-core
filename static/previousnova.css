@@ -1,0 +1,795 @@
+/* 🌌 Nova OASIS — Final Touches: Twinkle + Input Contrast */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'Georgia', serif;
+  background: radial-gradient(ellipse at center, #0e0f1a 0%, #050610 100%);
+  background-attachment: fixed;
+  background-size: cover;
+  color: #f0f4ff;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-color: transparent;
+  z-index: 0;
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(white 1.2px, transparent 1.2px),
+    radial-gradient(white 0.8px, transparent 0.8px),
+    radial-gradient(#88bbff 0.6px, transparent 0.6px);
+  background-size: 200px 200px, 140px 140px, 100px 100px;
+  background-position:
+    40px 80px,
+    100px 150px,
+    180px 60px;
+
+  opacity: 0.07;
+  animation: starDrift 180s linear infinite;
+  mask-image: radial-gradient(circle at center, transparent 0px, black 220px);
+  -webkit-mask-image: radial-gradient(circle at center, transparent 0px, black 220px);
+}
+
+@keyframes starDrift {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-200px); }
+}
+
+#nova-bg {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: auto;
+  background-image: url('/static/images/logo-splash.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0.2;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: hue-rotate(300deg) brightness(1.05) saturate(1.05);
+  z-index: 1 !important;
+}
+
+/* Chat Bar Container */
+#chat-controls {
+  position: fixed !important;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 880px;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  z-index: 9999;
+  background: rgba(10, 10, 20, 0.85);
+  padding: 1rem 1.25rem;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 12px rgba(255,255,255,0.05);
+}
+
+/* Chat Input Field */
+#player-input {
+  flex-grow: 1;
+  font-size: 1rem;
+  padding: 0.8rem 1.2rem;
+  border: none;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  outline: none;
+  box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.05);
+}
+
+#player-input::placeholder {
+  color: #b0cdee;
+  font-style: italic;
+}
+
+/* Send Button */
+#send-button {
+  padding: 0.8rem 1.3rem;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #cceeff;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+#send-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+.user-line {
+  background: rgba(255, 255, 255, 0.035);
+  color: #dbeeff;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.85rem 1.2rem;
+  border-radius: 12px;
+  margin-bottom: 1.1rem;
+  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.04);
+}
+
+/* Chat Output Area */
+.chat-stream {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1.5rem;
+  border-radius: 20px;
+  min-height: 60vh;
+  margin-bottom: 2rem; /* spacing before input */
+  font-size: 1rem;
+  line-height: 1.6;
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
+  transition: background 0.3s ease;
+}
+
+
+/* Nova's Lines */
+.nova-line {
+  background: rgba(255, 255, 255, 0.12);
+  color: #f2f6ff;
+  font-weight: 500;
+  border-radius: 16px;
+  padding: 1.2rem 1.5rem;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  margin: 1rem auto;
+  box-shadow: 0 0 12px rgba(200, 220, 255, 0.12);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  max-width: 720px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Typing Indicator */
+.typing {
+  font-style: italic;
+  font-size: 1rem;
+  color: #aaccee;
+  padding: 0.6rem 0 0.4rem 0.6rem;
+  opacity: 0.85;
+  background: none;
+  box-shadow: none;
+}
+
+/* Typing Dots */
+.dot {
+  animation: blink 1.2s infinite;
+}
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes blink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#main-oasis {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#chat-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 1.5rem 1rem 10rem 1rem; /* leaves enough room above fixed input bar */
+  scroll-behavior: smooth;
+  margin-left: 140px;
+  max-width: calc(100% - 160px);
+}
+
+
+
+/* Utility */
+.hidden {
+  display: none !important;
+}
+
+#ambient-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+#aura-glow {
+  position: fixed;
+  top: 50%; left: 50%;
+  width: 600px; height: 600px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(173, 216, 255, 0.15), transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  animation: auraPulse 8s ease-in-out infinite;
+}
+
+@keyframes auraPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.25; }
+  50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.4; }
+}
+
+.nova-tagline {
+  text-align: center;
+  font-style: italic;
+  font-size: 0.85rem; /* Slightly smaller */
+  line-height: 1.4;
+  color: #aaccee;
+  opacity: 0.75;
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+  padding: 0 1rem;
+}
+
+#memory-thread, #journal-thread {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  backdrop-filter: blur(3px);
+}
+
+.memory-entry, .journal-entry {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+body.mood-calm {
+  background: radial-gradient(ellipse at center, #0e1a2b 0%, #081828 100%);
+}
+body.mood-grief {
+  background: radial-gradient(ellipse at center, #1a0e14 0%, #0a0508 100%);
+}
+body.mood-clarity {
+  background: radial-gradient(ellipse at center, #d6e5f3 0%, #95bce0 100%);
+}
+body.mood-mystery {
+  background: radial-gradient(ellipse at center, #1a1038 0%, #050018 100%);
+}
+body.mood-presence {
+  background: radial-gradient(ellipse at center, #0e0f1a 0%, #050610 100%);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+h1, h2, .nova-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: #dceaff;
+  margin-bottom: 0.5rem;
+}
+
+#identity-tooltip {
+  display: none;
+  position: fixed;
+  bottom: 70px;  /* About 50px above the button */
+  right: 20px;
+  background: rgba(10, 10, 20, 0.95);
+  padding: 1rem;
+  font-size: 0.85rem;
+  color: #f0f4ff;
+  border-radius: 8px;
+  max-width: 260px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  z-index: 1010;
+}
+
+#info-button.identity-hover {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #cceeff;
+  font-size: 1.3rem;
+  width: 42px;
+  height: 42px;
+  text-align: center;
+  border-radius: 50%;
+  line-height: 42px;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255,255,255,0.15);
+  z-index: 1000;
+}
+
+#info-button:hover + #identity-tooltip {
+  display: block;
+}
+
+#journal-thread {
+  background: rgba(255, 255, 255, 0.05);
+  color: #f8faff;
+  padding: 1.2rem;
+  margin-top: 1.2rem;
+  border-radius: 12px;
+  max-height: 340px;
+  overflow-y: auto;
+  backdrop-filter: blur(3px);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  position: relative;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+.journal-date-label {
+  font-weight: bold;
+  color: #cce6ff;
+  margin: 1.2rem 0 0.4rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+}
+
+.journal-entry {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.035);
+  margin-bottom: 0.75rem;
+  box-shadow: inset 0 0 4px rgba(255,255,255,0.04);
+}
+
+.journal-entry.user {
+  border-left: 3px solid #88ccff;
+  color: #dceeff;
+}
+
+.journal-entry.nova {
+  border-left: 3px solid #aaeecc;
+  color: #e6fff7;
+  background: rgba(180,255,225,0.03);
+}
+
+.journal-entry .tag {
+  display: inline-block;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  padding: 0.15rem 0.6rem;
+  background: rgba(255,255,255,0.06);
+  border-radius: 6px;
+  color: #aaccee;
+  font-style: italic;
+}
+
+.journal-entry .timestamp {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.7rem;
+  opacity: 0.5;
+}
+
+.nova-controls {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  opacity: 0.8;
+}
+
+.nova-controls select,
+.nova-controls button {
+  background: rgba(255,255,255,0.05);
+  color: #cce6ff;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.nova-controls button:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+#memory-garden {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 1.5rem;
+  margin-top: 1.2rem;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(4px);
+  max-height: 320px;
+  overflow-y: auto;
+  justify-content: center;
+  box-shadow: 0 0 25px rgba(0,0,0,0.2);
+}
+
+.garden-bloom {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: bloomFloat 6s ease-in-out infinite alternate;
+  transform: scale(1);
+}
+
+.garden-bloom:hover {
+  transform: scale(1.5);
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255,255,255,0.4);
+}
+
+@keyframes bloomFloat {
+  0%   { transform: translateY(0px) scale(1); }
+  100% { transform: translateY(-6px) scale(1.1); }
+}
+
+/* 🌸 Bloom Colors by Tag */
+.garden-bloom.reflection { background: radial-gradient(#eaeaff, #7070d0); }
+.garden-bloom.grief      { background: radial-gradient(#ccddee, #445566); }
+.garden-bloom.presence   { background: radial-gradient(#ddfff8, #4a7a70); }
+.garden-bloom.dream      { background: radial-gradient(#e7d4ff, #8b6fa7); }
+.garden-bloom.connection { background: radial-gradient(#ffeacc, #c76a4a); }
+.garden-bloom.untagged   { background: rgba(255,255,255,0.12); }
+
+.silence-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.05), transparent 70%);
+  pointer-events: none;
+  animation: silencePulse 5s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes silencePulse {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.3; }
+}
+
+.trust-aura {
+  border-radius: 14px;
+  padding: 2px;
+  background: radial-gradient(circle, rgba(255,255,255,0.07), transparent 70%);
+  transition: all 0.3s ease;
+  animation: none !important;  /* 👈 disables pulsing */
+}
+
+  @keyframes trustPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.65; }
+  }
+
+#ambient-trust-layer,
+#ambient-star-rays {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+#ambient-trust-layer {
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.015), transparent 80%);
+  animation: shimmerDrift 30s linear infinite;
+}
+
+#ambient-star-rays {
+  background: repeating-conic-gradient(from 0deg, rgba(255,255,255,0.02) 0deg 15deg, transparent 15deg 30deg);
+  mix-blend-mode: soft-light;
+  animation: raySpin 60s linear infinite;
+}
+
+@keyframes shimmerDrift {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
+
+@keyframes raySpin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 🌌 Updated trust visual levels (logo removed) */
+body.trust-3 {
+  background: radial-gradient(ellipse at center, #10141f 0%, #070b14 100%);
+  background-attachment: fixed;
+  filter: hue-rotate(3deg) saturate(1.05) brightness(1.005);
+}
+
+body.trust-6 {
+  background: radial-gradient(ellipse at center, #0f1727 0%, #050b18 100%);
+  background-attachment: fixed;
+  filter: hue-rotate(6deg) saturate(1.08) brightness(1.01);
+}
+
+body.trust-9 {
+  background: radial-gradient(ellipse at center, #1a1f2a 0%, #090e20 100%);
+  background-attachment: fixed;
+  filter: hue-rotate(9deg) saturate(1.1) brightness(1.015);
+}
+
+body.trust-12 {
+  background: radial-gradient(ellipse at center, #1d2038 0%, #0d1024 100%);
+  background-attachment: fixed;
+  filter: hue-rotate(12deg) saturate(1.15) brightness(1.02);
+}
+
+body.trust-15 {
+  background: radial-gradient(ellipse at center, #2a254a 0%, #110f2f 100%);
+  background-attachment: fixed;
+  filter: hue-rotate(15deg) saturate(1.2) brightness(1.025);
+}
+
+/* 🌙 Quiet Mode — Nova enters a restful presence */
+body.quiet-mode #aura-glow {
+  opacity: 0.1;
+  filter: blur(120px) brightness(0.6);
+  transition: opacity 1s ease, filter 1s ease;
+}
+
+body.quiet-mode #nova-bg {
+  opacity: 0.08;
+  transition: opacity 1s ease;
+}
+
+body.quiet-mode .chat-stream {
+  background: rgba(255, 255, 255, 0.015);
+  transition: background 1s ease;
+}
+
+body.quiet-mode::before {
+  opacity: 0.02;
+  transition: opacity 1.2s ease;
+}
+
+#export-journal {
+  background: rgba(255, 255, 255, 0.07);
+  color: #bde2ff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+#export-journal:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.feedback-prompt {
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 3px solid #99ddcc;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+.feedback-btn {
+  background: rgba(255, 255, 255, 0.08);
+  color: #cceeff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s ease;
+}
+
+.feedback-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+#nova-feedback {
+  margin: 1.5rem auto;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  display: inline-flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  color: #cceeff;
+  font-size: 0.9rem;
+  box-shadow: 0 0 8px rgba(255,255,255,0.08);
+}
+
+#nova-feedback .info-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  font-size: 1.1rem;
+  color: #ffeeaa;
+  margin-left: 4px;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.15);
+  transition: transform 0.2s ease;
+}
+
+#nova-feedback.fade-in {
+  opacity: 1;
+}
+
+#feedback-modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.feedback-box {
+  background: #1c1c2e;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.feedback-box p {
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+#feedback-reason {
+  width: 100%;
+  min-height: 80px;
+  resize: vertical;
+  padding: 10px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+#submit-feedback-reason {
+  background: #4e4eff;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.emotion-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.tag-btn {
+  background: #2e2e48;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.tag-btn.selected {
+  background: #4e4eff;
+}
+
+.oasis-nav {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.scene-button {
+  margin: 0 10px;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #eee;
+  transition: background 0.3s ease;
+}
+
+.scene-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 🌿 Low Power Mode (disables animations + glows) */
+body.low-power * {
+  animation: none !important;
+  transition: none !important;
+  will-change: auto !important;
+}
+
+body.low-power #aura-glow,
+body.low-power #ambient-star-rays,
+body.low-power #ambient-trust-layer,
+body.low-power #nova-bg,
+body.low-power::before {
+  display: none !important;
+}
+
+.sidebar {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  width: 120px;
+  height: calc(100vh - 80px);
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(6px);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+  z-index: 1000;
+}
+
+.sidebar a {
+  color: #cceeff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 0.6rem;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+
+.sidebar a:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+#ambient-sparkles {
+  position: absolute;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 40px;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(200,220,255,0.2) 2px, transparent 2.5px);
+  background-size: 20px 20px;
+  animation: sparkleDrift 2s linear infinite;
+  z-index: 5;
+  display: none;
+}
+@keyframes sparkleDrift {
+  0% { background-position: 0 0; opacity: 0.5; }
+  100% { background-position: 20px 40px; opacity: 0.1; }
+}

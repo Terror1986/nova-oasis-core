@@ -1,0 +1,282 @@
+/* 🌌 Nova Core — Focused Presence Layout */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'Georgia', serif;
+  background: radial-gradient(ellipse at center, #0e0f1a 0%, #050610 100%);
+  background-attachment: fixed;
+  color: #f0f4ff;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(white 1.2px, transparent 1.2px),
+    radial-gradient(white 0.8px, transparent 0.8px),
+    radial-gradient(#88bbff 0.6px, transparent 0.6px);
+  background-size: 200px 200px, 140px 140px, 100px 100px;
+  background-position: 40px 80px, 100px 150px, 180px 60px;
+  opacity: 0.07;
+  animation: starDrift 180s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes starDrift {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-200px); }
+}
+
+/* ✨ Ambient Glow */
+#aura-glow {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(173, 216, 255, 0.15), transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  animation: auraPulse 8s ease-in-out infinite;
+}
+
+@keyframes auraPulse {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.4; }
+}
+
+/* 🪞 Tagline Top Display */
+.nova-tagline {
+  text-align: center;
+  font-style: italic;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #aaccee;
+  opacity: 0.75;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+}
+
+/* 📎 Tooltip Version (Fixed Hover Style) */
+.nova-tagline-container {
+  position: fixed;
+  bottom: 100px;
+  left: 20px;
+  z-index: 999;
+}
+
+#info-button:hover + .nova-tagline-container .nova-tagline-tooltip {
+  display: block;
+  animation: fadeInTagline 0.6s ease forwards;
+}
+
+.nova-tagline-tooltip {
+  display: none;
+  font-style: italic;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #aaccee;
+  opacity: 0.8;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  max-width: 320px;
+  box-shadow: 0 0 10px rgba(255,255,255,0.1);
+}
+
+@keyframes fadeInTagline {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 🗨️ Chat Area */
+.chat-stream {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 2rem 1.5rem 10rem;
+  border-radius: 20px;
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 880px;
+  margin: 0 auto;
+  overflow-y: auto;
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
+}
+
+.user-line {
+  background: rgba(255, 255, 255, 0.035);
+  color: #dbeeff;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.85rem 1.2rem;
+  border-radius: 12px;
+  margin-bottom: 1.1rem;
+  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.04);
+}
+
+.nova-line {
+  background: rgba(255, 255, 255, 0.12);
+  color: #f2f6ff;
+  font-weight: 500;
+  border-radius: 16px;
+  padding: 1.2rem 1.5rem;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  margin: 1rem auto;
+  box-shadow: 0 0 12px rgba(200, 220, 255, 0.12);
+  max-width: 720px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.typing {
+  font-style: italic;
+  font-size: 1rem;
+  color: #aaccee;
+  padding: 0.6rem 0 0.4rem 0.6rem;
+  opacity: 0.85;
+  background: none;
+}
+
+/* ✏️ Input Area */
+#chat-controls {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 880px;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  z-index: 999;
+  background: rgba(10, 10, 20, 0.85);
+  padding: 1rem 1.25rem;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 12px rgba(255,255,255,0.05);
+}
+
+#player-input {
+  flex-grow: 1;
+  font-size: 1rem;
+  padding: 0.8rem 1.2rem;
+  border: none;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  outline: none;
+}
+
+#player-input::placeholder {
+  color: #b0cdee;
+  font-style: italic;
+}
+
+#send-button {
+  padding: 0.8rem 1.3rem;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #cceeff;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+#send-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+/* 🧭 Layout */
+#main-oasis {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#chat-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 10rem;
+  max-width: 880px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ⬆️ Top Center Tagline */
+.nova-tagline {
+  text-align: center;
+  font-style: italic;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #aaccee;
+  opacity: 0.85;
+  max-width: 600px;
+  margin: 1.5rem auto 0.5rem;
+  padding: 0 1rem;
+  z-index: 2;
+}
+
+/* ❓ Hover Info in Bottom Right */
+#info-button {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-weight: bold;
+  padding: 0.5rem 0.8rem;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 999;
+  backdrop-filter: blur(6px);
+  border: 1px solid #ffffff22;
+  transition: background 0.2s ease;
+}
+
+#info-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 🪞 Tooltip Styling */
+.nova-tagline-tooltip {
+  position: fixed;
+  bottom: 4.5rem;
+  right: 1.5rem;
+  width: 320px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #aaccee;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  font-style: italic;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 998;
+}
+
+#info-button:hover + .nova-tagline-tooltip {
+  opacity: 1;
+  pointer-events: auto;
+}

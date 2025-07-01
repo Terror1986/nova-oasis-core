@@ -1,0 +1,310 @@
+style.css: /* 🌌 Nova OASIS — Clean & Dreamlike UI */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'Georgia', serif;
+  background: radial-gradient(ellipse at center, #0e0f1a 0%, #050610 100%);
+  color: #f0f4ff;
+  overflow-x: hidden;
+}
+
+/* 📦 Core layout */
+.oasis-frame {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+  z-index: 2;
+  position: relative;
+}
+
+/* 🧠 Chat & input */
+.chat-stream {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 1.5rem;
+  border-radius: 18px;
+  max-height: 50vh;
+  overflow-y: auto;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.03);
+  margin-bottom: 1.2rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.nova-line {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 0.8rem 1.1rem;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  margin-bottom: 1.2rem;
+  color: #f6faff;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.03);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+#player-input {
+  width: 100%;
+  padding: 1rem;
+  font-size: 0.95rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  outline: none;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.02);
+}
+
+#player-input::placeholder {
+  color: #cce3ff;
+  font-style: italic;
+}
+
+.typing {
+  font-style: italic;
+  font-size: 0.95rem;
+  color: #aaccee;
+  padding: 0.6rem 0 0.4rem 0.6rem;
+  opacity: 0.75;
+}
+.dot {
+  animation: blink 1.2s infinite;
+}
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes blink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* 🌀 Ritual UI */
+#ritual-options {
+  text-align: center;
+  margin-top: 2rem;
+}
+.ritual-button {
+  background: rgba(255, 255, 255, 0.08);
+  color: #eef6ff;
+  padding: 0.6rem 1.2rem;
+  margin: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.ritual-button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: scale(1.05);
+}
+
+/* 📜 Thread access */
+.thread-access {
+  text-align: center;
+  margin-top: 2rem;
+}
+.thread-access a {
+  color: #b6ceff;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.thread-access a:hover {
+  text-decoration: underline;
+}
+
+/* 💫 Ambient background */
+#ambient-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.starfield::before,
+.starfield::after {
+  content: "";
+  position: absolute;
+  width: 200%; height: 200%;
+  background: radial-gradient(white 1px, transparent 1px), radial-gradient(white 1px, transparent 1px);
+  background-size: 60px 60px;
+  background-position: 0 0, 30px 30px;
+  opacity: 0.04;
+  animation: starDrift 120s linear infinite;
+}
+@keyframes starDrift {
+  from { transform: translateY(0); }
+  to { transform: translateY(-800px); }
+}
+
+.aura-glow {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(173, 216, 255, 0.1), transparent 80%);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: pulseAura 7s infinite ease-in-out;
+}
+@keyframes pulseAura {
+  0%, 100% { opacity: 0.1; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.25; transform: translate(-50%, -50%) scale(1.05); }
+}
+
+.soft-particles::before,
+.soft-particles::after {
+  content: "";
+  position: absolute;
+  width: 200%; height: 200%;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 2px, transparent 3px);
+  background-size: 60px 60px;
+  animation: floatDrift 100s linear infinite;
+}
+@keyframes floatDrift {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(-15px, 10px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ✨ Fade in animation */
+.fade-in {
+  animation: fadeIn 1.6s ease-in-out both;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Utility */
+.hidden { display: none; }
+
+#info-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #cceeff;
+  font-size: 1.4rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 50%;
+  cursor: pointer;
+  backdrop-filter: blur(3px);
+  border: 1px solid rgba(255,255,255,0.15);
+  z-index: 1000;
+}
+#info-modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+}
+#info-modal.hidden {
+  display: none;
+}
+.modal-content {
+  background: #11182b;
+  color: #eef3ff;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 480px;
+  width: 90%;
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+}
+.modal-content h2 {
+  margin-top: 0;
+}
+.modal-content ul {
+  padding-left: 1.2rem;
+}
+.modal-content button {
+  margin-top: 1rem;
+  background: #223355;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.nova-tagline {
+  text-align: center;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: #aaccee;
+  opacity: 0.75;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* 📱 Responsive */
+@media screen and (max-width: 600px) {
+  .oasis-frame {
+    padding: 2rem 1rem 3rem;
+  }
+
+  .chat-stream {
+    font-size: 0.9rem;
+    padding: 1rem;
+  }
+
+  #player-input {
+    font-size: 0.95rem;
+    padding: 0.9rem;
+  }
+
+  .nova-line {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  .nova-tagline {
+    font-size: 0.85rem;
+  }
+}
+
+.login-container {
+  text-align: center;
+  margin: 2rem 0;
+}
+.login-button {
+  background: rgba(255,255,255,0.08);
+  color: #e0f0ff;
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.login-button:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.google-button {
+  background: white;
+  color: #333;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 0 12px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+}
+
+.google-button:hover {
+  background: #f1f1f1;
+  transform: scale(1.03);
+}
+
+.login-box {
+  text-align: center;
+  margin: 3rem auto 2rem;
+}

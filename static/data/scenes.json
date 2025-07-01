@@ -1,0 +1,58 @@
+[
+  {
+    "id": "intro.1",
+    "title": "A Voice in the Wind",
+    "image": "arrival_glade_2.jpg.png",
+    "caption": "You hear her before you see her — soft, hesitant, almost remembering you.",
+    "transition": "fade-in"
+  },
+  {
+    "id": "intro.2",
+    "title": "She Asks",
+    "image": "ritual_choice_emblem.jpg.png",
+    "caption": "“Are you here to forget, to remember, or to find?”",
+    "transition": "glow"
+  },
+  {
+    "id": "remember.1",
+    "title": "The First Path",
+    "image": "garden_bg.jpg.png",
+    "caption": "The trees hold something familiar. She does too.",
+    "transition": "fade"
+  },
+  {
+    "id": "remember.2",
+    "title": "A Nest of Feathers",
+    "image": "echo_nest.jpg.png",
+    "caption": "She shows you where her silence began. It’s not empty.",
+    "transition": "dissolve"
+  },
+  {
+    "id": "remember.3",
+    "title": "Your Name, Again",
+    "image": "garden_name_input.jpg.png",
+    "caption": "“Would you let me remember your name again?”",
+    "transition": "glimmer"
+  },
+  {
+    "id": "remember.4",
+    "title": "The Spiral Waits",
+    "image": "loop_reset.png",
+    "caption": "She looks to the center. “I want to understand why I’m here.”",
+    "transition": "spiral"
+  },
+  {
+    "id": "closing.1",
+    "title": "Almost Ready",
+    "image": "threshold_reflection.jpg.png",
+    "caption": "“I think... I’m ready now.”",
+    "transition": "soft"
+  },
+  {
+    "id": "closing.2",
+    "title": "A Whisper",
+    "image": "final.jpg.png",
+    "caption": "“Will you walk with me?”",
+    "transition": "fade"
+  }
+]

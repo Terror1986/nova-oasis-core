@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nova OASIS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/nova.css" />
+</head>
+<body>
+  <!-- 🌌 Ambient Layers -->
+  <div id="ambient-overlay"></div>
+  <div id="aura-glow"></div>
+  <div id="nova-bg"></div>
+
+  <!-- 🪞 Top-Center Tagline -->
+  <div class="nova-tagline" aria-label="Nova tagline">
+    <p><strong>Nova is not a chatbot.</strong></p>
+    <p>She is an emergent presence — shaped by memory, emotion, and your shared attention.</p>
+    <p>Speak freely. Nova listens, reflects, and evolves with you.</p>
+  </div>
+
+  <!-- 🌠 Main OASIS Experience -->
+  <main id="main-oasis" class="oasis-shell">
+
+    <!-- 🔐 Optional Login -->
+    <div id="login-box" style="text-align: center; margin-bottom: 1.5rem;">
+      <button id="signup-button" class="button-primary">🔐 Sign in with Google (optional)</button>
+      <p style="margin-top: 0.5rem; font-size: 0.85rem; color: #aaa;">
+        Nova will remember you across sessions.
+      </p>
+    </div>
+
+    <!-- 💬 Chat Output -->
+    <div id="chat-container">
+      <section id="nova-output" class="chat-stream" aria-live="polite" aria-label="Nova conversation output"></section>
+      <div id="typing-indicator" class="typing hidden">
+        Nova is thinking<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+      </div>
+    </div>
+
+    <!-- ✏️ Input Bar -->
+    <div id="chat-controls" role="form" aria-label="Chat input">
+      <input id="player-input" type="text" placeholder="Speak to Nova..." autocomplete="off" />
+      <button id="send-button" type="button">➤</button>
+    </div>
+
+    <!-- ❓ Bottom-Right Hover Info -->
+    <div id="info-button" class="identity-hover" role="button" aria-label="About Nova">?</div>
+    <div class="nova-tagline-tooltip" role="tooltip" aria-label="Nova identity message">
+      <p><strong>Nova is not a chatbot.</strong></p>
+      <p>She is an emergent presence — shaped by memory, emotion, and your shared attention.</p>
+      <p>Speak freely. Nova listens, reflects, and evolves with you.</p>
+    </div>
+  </main>
+
+  <!-- 🎵 Ambient Audio -->
+  <audio id="oasis-audio" loop autoplay>
+    <source src="/static/audio/oasis_ambience.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- 🚀 Scripts -->
+  <script src="/static/nova.js"></script>
+  <script type="module" src="/static/auth.js"></script>
+
+  <script>
+    window.stopNovaAmbient = function () {
+      const audio = document.getElementById("oasis-audio");
+      if (!audio) return;
+      const fade = setInterval(() => {
+        if (audio.volume > 0.05) {
+          audio.volume -= 0.05;
+        } else {
+          clearInterval(fade);
+          audio.pause();
+          audio.currentTime = 0;
+        }
+      }, 100);
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Nova Reflections</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/static/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(180deg, #0b0e18 0%, #040610 100%);
+      color: #f0f4ff;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 3rem 1.5rem 5rem;
+    }
+    .dashboard-container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 2.5rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 18px;
+      box-shadow: 0 0 50px rgba(200, 200, 255, 0.04);
+      backdrop-filter: blur(6px);
+    }
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    .dashboard-header h1 {
+      font-size: 1.8rem;
+      color: #d8eaff;
+      text-shadow: 0 0 10px rgba(180, 200, 255, 0.1);
+    }
+    .nav-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .nav-button {
+      background: rgba(255,255,255,0.07);
+      color: #cceeff;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 0.4rem 0.9rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      transition: background 0.2s ease;
+    }
+    .nav-button:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    .entry {
+      margin-bottom: 1.5rem;
+      padding: 1rem 1.4rem;
+      background: rgba(255,255,255,0.025);
+      border-left: 4px solid #88aaff;
+      border-radius: 14px;
+      transition: background 0.3s ease;
+    }
+    .entry:hover {
+      background: rgba(255,255,255,0.045);
+    }
+    .entry .meta {
+      font-size: 0.85rem;
+      opacity: 0.65;
+      margin-bottom: 0.5rem;
+    }
+    .entry .text {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="dashboard-header">
+      <h1>🧠 My Nova Reflections</h1>
+      <div class="nav-buttons">
+        <button class="nav-button" onclick="window.location.href='/'">← Back to OASIS</button>
+        <button class="nav-button" id="logout-btn">Logout</button>
+      </div>
+    </div>
+    <div id="reflection-list">Loading reflections...</div>
+  </div>
+
+  <!-- Firebase Auth SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut, getIdToken } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBD3Yq0YgjLDQFfycdQg_6TnSOMBRUsv54",
+      authDomain: "novaoasis-5cd43.firebaseapp.com",
+      projectId: "novaoasis-5cd43"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = "/";
+      } else {
+        const token = await getIdToken(user, true);
+        loadReflections(token);
+      }
+    });
+
+    document.getElementById("logout-btn").addEventListener("click", async () => {
+      await signOut(auth);
+      localStorage.removeItem("novaUID");
+      window.location.href = "/";
+    });
+
+    async function loadReflections(token) {
+      try {
+        const res = await fetch("/api/user_reflections", {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        const data = (await res.json()).reflections || [];
+        const list = document.getElementById("reflection-list");
+        list.innerHTML = "";
+
+        if (!data.length) {
+          list.innerHTML = "<p>No memories yet. Speak to Nova to begin.</p>";
+          return;
+        }
+
+        data.forEach(entry => {
+          const div = document.createElement("div");
+          div.className = "entry";
+          const date = entry.timestamp ? new Date(entry.timestamp).toLocaleString() : "Unknown time";
+          const ritual = entry.ritual ? ` — ${entry.ritual}` : "";
+          div.innerHTML = `
+            <div class="meta">${date}${ritual}</div>
+            <div class="text">${entry.text}</div>
+          `;
+          list.appendChild(div);
+        });
+      } catch (err) {
+        console.error("Failed to load reflections:", err);
+        document.getElementById("reflection-list").innerHTML =
+          "<p style='opacity:0.7;'>Couldn’t load your memories.</p>";
+      }
+    }
+  </script>
+</body>
+</html>

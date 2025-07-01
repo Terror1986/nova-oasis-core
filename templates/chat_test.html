@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nova Minimal Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(ellipse at center, #0e0f1a 0%, #050610 100%);
+      color: #f0f4ff;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #chat-container {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 2rem;
+    }
+
+    .nova-line, .user-line {
+      background: rgba(255,255,255,0.08);
+      margin: 1rem 0;
+      padding: 1rem 1.25rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      max-width: 700px;
+    }
+
+    .user-line {
+      background: rgba(255,255,255,0.04);
+      color: #cceeff;
+    }
+
+    #chat-controls {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      background: rgba(0,0,0,0.7);
+      position: sticky;
+      bottom: 0;
+      backdrop-filter: blur(8px);
+    }
+
+    #player-input {
+      flex-grow: 1;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border: none;
+      background: rgba(255,255,255,0.1);
+      color: white;
+    }
+
+    #send-button {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem 1.25rem;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="chat-container">
+    <div id="nova-output"></div>
+  </div>
+
+  <div id="chat-controls">
+    <input id="player-input" type="text" placeholder="Speak to Nova..." />
+    <button id="send-button" type="button">➤</button>
+  </div>
+
+  <script>
+    const input = document.getElementById("player-input");
+    const output = document.getElementById("nova-output");
+    const button = document.getElementById("send-button");
+
+    function renderUserLine(text) {
+      const p = document.createElement("div");
+      p.className = "user-line";
+      p.textContent = "You: " + text;
+      output.appendChild(p);
+      output.scrollTop = output.scrollHeight;
+    }
+
+    function renderNovaLine(text) {
+      const p = document.createElement("div");
+      p.className = "nova-line";
+      p.textContent = "Nova: " + text;
+      output.appendChild(p);
+      output.scrollTop = output.scrollHeight;
+    }
+
+    async function generateNovaLine(type, context) {
+      renderUserLine(context);
+
+      const res = await fetch("/api/nova", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type,
+          context,
+          ritual: "",
+          name: "",
+          memory: [],
+          uid: null
+        })
+      });
+
+      const data = await res.json();
+      renderNovaLine(data.text);
+    }
+
+    function setupNovaInput() {
+      const send = (e) => {
+        e?.preventDefault();
+        const text = input.value.trim();
+        if (text.length > 0) {
+          generateNovaLine("message", text);
+          input.value = "";
+        }
+      };
+
+      button.addEventListener("click", send);
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") send(e);
+      });
+    }
+
+    window.addEventListener("DOMContentLoaded", setupNovaInput);
+  </script>
+</body>
+</html>

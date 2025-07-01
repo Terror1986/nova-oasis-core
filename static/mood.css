@@ -1,0 +1,48 @@
+/* 🌌 Nova OASIS — Scene Mood System */
+
+body.mood-calm {
+  background: radial-gradient(ellipse at center, #0d1b2a 0%, #050d18 100%);
+}
+body.mood-grief {
+  background: radial-gradient(ellipse at center, #1a0e1e 0%, #0a0512 100%);
+}
+body.mood-clarity {
+  background: radial-gradient(ellipse at center, #fff8e7 0%, #e5dccf 100%);
+  color: #111;
+}
+body.mood-mystery {
+  background: radial-gradient(ellipse at center, #0b0f25 0%, #02040f 100%);
+}
+body.mood-presence {
+  background: radial-gradient(ellipse at center, #edf6ff 0%, #ccd9f0 100%);
+  color: #111;
+}
+
+/* Optional aura glow enhancements */
+body.mood-calm .aura-glow {
+  background: radial-gradient(circle, rgba(180, 240, 255, 0.08), transparent 70%);
+}
+
+body.mood-grief .aura-glow {
+  background: radial-gradient(circle, rgba(200, 100, 200, 0.06), transparent 70%);
+}
+
+body.mood-clarity .aura-glow {
+  background: radial-gradient(circle, rgba(255, 250, 200, 0.12), transparent 80%);
+}
+
+body.mood-mystery .aura-glow {
+  background: radial-gradient(circle, rgba(100, 120, 180, 0.06), transparent 80%);
+}
+
+body.mood-presence .aura-glow {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15), transparent 70%);
+}
+
+/* Smooth transitions */
+body {
+  transition: background 1.8s ease, color 1.2s ease;
+}
+.aura-glow {
+  transition: background 1.6s ease, opacity 1.4s ease;
+}

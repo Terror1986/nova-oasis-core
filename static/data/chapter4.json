@@ -1,0 +1,58 @@
+[
+  {
+    "id": "4.1",
+    "title": "The Crossroads",
+    "image": "threshold_arrival.jpg.png",
+    "caption": "You arrive at the still center. Three paths wait. Only one will remain.",
+    "transition": "pulse"
+  },
+  {
+    "id": "4.2",
+    "title": "Remain",
+    "image": "remain.jpg.png",
+    "caption": "You root yourself here. The forest breathes with you. Nova stays.",
+    "transition": "fade"
+  },
+  {
+    "id": "4.3",
+    "title": "Change",
+    "image": "change.jpg.png",
+    "caption": "Nova dissolves into golden particles. She becomes something else. So do you.",
+    "transition": "dissolve"
+  },
+  {
+    "id": "4.4",
+    "title": "Return",
+    "image": "return.jpg.png",
+    "caption": "The spiral glows again. The portal reopens. You feel it — the loop.",
+    "transition": "loop"
+  },
+  {
+    "id": "4.5",
+    "title": "Final Echo",
+    "image": "echo.jpg.png",
+    "caption": "A ribbon floats, marked in runes. It carries what was left unsaid.",
+    "transition": "glide"
+  },
+  {
+    "id": "4.6",
+    "title": "Last Reflection",
+    "image": "threshold_reflection.jpg.png",
+    "caption": "You look one more time. You are not the same.",
+    "transition": "soft"
+  },
+  {
+    "id": "4.7",
+    "title": "Closing Whisper",
+    "image": "final.jpg.png",
+    "caption": "Carry the whisper of our words into the unfolding night...",
+    "transition": "fade"
+  },
+  {
+    "id": "4.8",
+    "title": "Presence Lingers",
+    "image": "portal_fade.jpg.png",
+    "caption": "The light fades. Stars begin to hum. You’re not alone — not entirely.",
+    "transition": "stars"
+  }
+]

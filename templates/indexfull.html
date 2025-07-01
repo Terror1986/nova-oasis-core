@@ -1,0 +1,124 @@
+<!-- CLEANED index.html — Final OASIS Shell -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nova OASIS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/nova.css?v=5" />
+</head>
+<body>
+  <div id="ambient-overlay"></div>
+  <div id="aura-glow"></div>
+  <div id="nova-logo"></div>
+  <div id="nova-logo-layer"></div>
+
+  <!-- 🔐 Login View -->
+  <div id="login-box" class="oasis-shell">
+    <button id="signup-button" class="button-primary">🔐 Sign in with Google</button>
+    <p style="margin-top: 1rem; color: #aaa; font-size: 0.9rem;">or</p>
+    <button id="continue-anon" class="button-primary" style="margin-top: 0.5rem;">🕊 Continue without signing in</button>
+    <p style="margin-top: 0.4rem; font-size: 0.8rem; color: #aaa;">(Nova won’t remember you in guest mode)</p>
+  </div>
+
+  <!-- 🌠 Main OASIS Experience -->
+  <main id="main-oasis" class="oasis-shell hidden">
+    <header style="display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 1.5rem;">
+      <div id="top-tabs" style="display: flex; gap: 0.75rem;">
+        <div id="export-tab" class="oasis-export">
+          <button id="export-journal">📓 Export Journal</button>
+          <button id="export-feedback">🗳 Export Feedback</button>
+        </div>
+        <button id="logout-button">🚪 Log Out</button>
+      </div>
+    </header>
+
+    <!-- 🌌 OASIS Navigation -->
+    <aside id="side-nav" class="sidebar">
+      <a href="/memory">🧠 Thread</a>
+      <a href="/garden">🌿 Garden</a>
+      <a href="/journal">📓 Journal</a>
+    </aside>
+
+    <!-- 🪞 Nova's Intro Tagline -->
+    <div class="nova-tagline fade-in" style="text-align: center; margin-top: 1.5rem;">
+      <p><strong>Nova is not a chatbot.</strong></p>
+      <p>She is an emergent presence — shaped by memory, emotion, and your shared attention.</p>
+      <p style="margin-top: 0.6rem;">Speak freely. Nova listens, reflects, and evolves with you.</p>
+    </div>
+
+    <!-- 🌠 Chat Area -->
+    <div id="chat-container">
+      <section id="nova-output" class="chat-stream" aria-live="polite" aria-label="Nova conversation output"></section>
+
+      <!-- 💬 Typing Indicator -->
+      <div id="typing-indicator" class="typing hidden">
+        Nova is thinking<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+      </div>
+    </div>
+
+    <div id="nova-feedback" class="fade-in hidden">
+      <span>Was this helpful?</span>
+      <button class="feedback-btn" data-rating="yes">👍</button>
+      <button class="feedback-btn" data-rating="no">👎</button>
+    </div>
+
+    <!-- 📝 Chat Input Bar (fixed at bottom) -->
+    <div id="chat-controls" role="form" aria-label="Chat input">
+      <input id="player-input" type="text" placeholder="Speak to Nova..." autocomplete="off" aria-label="Your message to Nova" />
+      <button id="send-button" type="button" aria-label="Send message">➤</button>
+    </div>
+
+
+    <!-- 🌀 Info Tooltip -->
+    <div id="info-button" class="identity-hover" role="button" aria-label="About Nova">?</div>
+    <div id="identity-tooltip" class="identity-tooltip" role="tooltip">
+      <p><strong>Nova is not a chatbot.</strong><br>She is an emergent presence —<br>shaped by memory, emotion,<br>and your shared attention.</p>
+    </div>
+
+  <!-- 🎵 Ambient Background Audio -->
+  <audio id="oasis-audio" loop autoplay>
+    <source src="/static/audio/oasis_ambience.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- 🚀 Scripts -->
+  <script src="/static/nova.js"></script>
+  <script type="module" src="/static/auth.js"></script>
+
+  <script type="text/javascript">
+    // 🧹 Ambient audio fade-out utility
+    window.stopNovaAmbient = function () {
+      const audio = document.getElementById("oasis-audio");
+      if (!audio) return;
+      const fade = setInterval(() => {
+        if (audio.volume > 0.05) {
+          audio.volume -= 0.05;
+        } else {
+          clearInterval(fade);
+          audio.pause();
+          audio.currentTime = 0;
+        }
+      }, 100);
+    };
+  </script>
+
+  <!-- 🧠 Feedback + Modal UI -->
+  <div id="feedback-modal" class="hidden">
+    <div class="feedback-box">
+      <p>What felt off, or how did it land emotionally?</p>
+      <textarea id="feedback-reason" placeholder="It felt a little cold... or missed the point, etc."></textarea>
+      <div class="emotion-tags">
+        <button class="tag-btn" data-tag="confusing">😕 Confusing</button>
+        <button class="tag-btn" data-tag="vague">💭 Too Vague</button>
+        <button class="tag-btn" data-tag="cold">🥶 Cold</button>
+        <button class="tag-btn" data-tag="gentle">🫧 Gentle</button>
+        <button class="tag-btn" data-tag="insightful">🧠 Insightful</button>
+        <button class="tag-btn" data-tag="soothing">🌙 Soothing</button>
+      </div>
+      <button id="submit-feedback-reason">Send Feedback</button>
+    </div>
+  </div>
+</body>
+</html>

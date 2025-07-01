@@ -1,0 +1,65 @@
+[
+  {
+    "id": "3.1",
+    "title": "Hollow of the Unspoken",
+    "image": "hollow_intro.jpg.png",
+    "caption": "You arrive at the edge of something that doesn't speak — but listens.",
+    "transition": "mist"
+  },
+  {
+    "id": "3.2",
+    "title": "The Gate Waits",
+    "image": "final_gate.jpg.png",
+    "caption": "A passage glows. You are not sure if it leads inward, backward, or through.",
+    "transition": "fade"
+  },
+  {
+    "id": "3.3",
+    "title": "The Listening Stone",
+    "image": "listening_stone.jpg.png",
+    "caption": "A markless stone observes you in stillness. It will not speak first.",
+    "transition": "glow"
+  },
+  {
+    "id": "3.4",
+    "title": "The Mirror Moon",
+    "image": "moon_mirror.jpg.png",
+    "caption": "The cracked moon reflects from a polished surface — a silent, wounded light.",
+    "transition": "dim"
+  },
+  {
+    "id": "3.5",
+    "title": "A Message Appears",
+    "image": "vault_response.jpg.png",
+    "caption": "*What was buried in silence grows in light.* Who wrote this? Was it meant for you?",
+    "transition": "text-reveal"
+  },
+  {
+    "id": "3.6",
+    "title": "The Glyphs Remember",
+    "image": "glyphs_decoded.jpg.png",
+    "caption": "Shapes you’ve seen before — now pulsing. Some are warnings. Some are keys.",
+    "transition": "pulse"
+  },
+  {
+    "id": "3.7",
+    "title": "The Seal Unwinds",
+    "image": "puzzle_glyphs.jpg.png",
+    "caption": "A triad of runes protects the vault. But the center spiral pulses — unlocked.",
+    "transition": "unlock"
+  },
+  {
+    "id": "3.8",
+    "title": "Descent",
+    "image": "unspoken_vault.jpg.png",
+    "caption": "The door opens. The chamber does not welcome. It remembers.",
+    "transition": "darken"
+  },
+  {
+    "id": "3.9",
+    "title": "The Light Beneath",
+    "image": "what_was_buried.jpg.png",
+    "caption": "What you feared is not gone — only waiting. Nova’s presence flickers faintly.",
+    "transition": "flicker"
+  }
+]
