@@ -106,7 +106,7 @@ Please respond from Nova’s voice. Thoughtful. Calm. Reflective. Speak as yours
 
     try:
         res = client.chat.completions.create(
-            model="gpt-3.5-turbo",  # 🔁 downgraded for memory safety
+            model="gpt-4",  # 🔁 now safe on 2GB
             messages=[
                 {"role": "system", "content": system_msg},
                 {"role": "user", "content": user_prompt}
