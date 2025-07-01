@@ -99,14 +99,15 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("nova_profile", JSON.stringify(profile));
 
     // ✅ Always reflect, even for guests
-    const uid = window.getNovaUID?.() || "guest";
-    fetch("/api/reflect", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...entry, uid })
-    }).catch((err) => {
-      console.warn("[Nova.js] Failed to reflect:", err);
-    });
+     const uid = window.getNovaUID?.() || "guest";
+      fetch("/api/reflect", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...entry, uid })
+      }).catch((err) => {
+        console.warn("[Nova.js] Failed to reflect:", err);
+      });
+    }
 
   async function generateNovaLine(type = "message", context = "") {
     if (!context.trim()) return;
