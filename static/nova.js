@@ -115,6 +115,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const memory = chatLog.slice(-20);
     const profile = JSON.parse(localStorage.getItem("nova_profile") || "{}");
+
+    // 🔹 Ask for name if not set
+    if (!profile.name) {
+      const namePrompt = prompt("What name would you like Nova to remember you by?");
+      if (namePrompt && namePrompt.trim().length > 0) {
+        profile.name = namePrompt.trim();
+        localStorage.setItem("nova_profile", JSON.stringify(profile));
+        console.log(`[Nova.js] Name set as: ${profile.name}`);
+      }
+    }
+
     const ritual = profile.ritual || "";
     const name = profile.name || "";
     const uid = window.getNovaUID?.() || null;
