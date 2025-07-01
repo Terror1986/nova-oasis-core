@@ -24,7 +24,7 @@ const provider = new GoogleAuthProvider();
 // 🌐 Global UID access for Nova
 window.getNovaUID = () => window.userUID || localStorage.getItem("novaUID");
 
-// 🌱 Bind user to Flask session with graceful fallback
+// 🌱 Bind user to Flask session (used by /api/reflect)
 async function bindUserSession(user) {
   try {
     const idToken = await user.getIdToken();
@@ -35,10 +35,8 @@ async function bindUserSession(user) {
     });
 
     if (!res.ok) throw new Error("Non-200 response");
-
     console.log("✅ [Nova OASIS] Backend session bound for UID:", user.uid);
     return user.uid;
-
   } catch (err) {
     const fallbackUID = `${user.uid || "unknown"}-unverified`;
     console.warn("⚠️ [Nova OASIS] Backend binding failed. Using fallback UID:", fallbackUID);
@@ -53,38 +51,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginBox = document.getElementById("login-box");
   const oasis = document.getElementById("main-oasis");
 
-  // 🪪 On auth state change (refresh or restore)
-  onAuthStateChanged(auth, (user) => {
-    const isAnonymous = user?.isAnonymous || false;
-    const uid = user?.uid || null;
-    const guestAllowed = localStorage.getItem("novaUID") === "guest";
+  // ✅ Let guests in without auth
+  oasis?.classList.remove("hidden");
+  loginBox?.classList.remove("hidden");
+  localStorage.setItem("novaUID", "guest");
+  window.userUID = "guest";
+  console.log("👥 [Nova OASIS] Guest session started");
 
-    if (uid && (!isAnonymous || guestAllowed)) {
-      console.log(`👤 [Nova OASIS] Active session ${isAnonymous ? "(guest)" : ""}: ${uid}`);
-      window.userUID = uid;
-      localStorage.setItem("novaUID", uid);
+  // 🔄 Auth state changes (if logged in manually)
+  onAuthStateChanged(auth, (user) => {
+    if (user?.uid) {
+      console.log(`👤 [Nova OASIS] Authenticated session: ${user.uid}`);
+      window.userUID = user.uid;
+      localStorage.setItem("novaUID", user.uid);
       oasis?.classList.remove("hidden");
       loginBox?.classList.add("hidden");
-    } else {
-      if (isAnonymous && !guestAllowed) {
-        console.log("⚠️ [Nova OASIS] Disallowed anonymous session — logging out");
-        signOut(auth).then(() => {
-          localStorage.removeItem("novaUID");
-          window.userUID = null;
-          oasis?.classList.add("hidden");
-          loginBox?.classList.remove("hidden");
-        });
-      } else {
-        console.log("🕓 [Nova OASIS] No session — showing login screen");
-        localStorage.removeItem("novaUID");
-        window.userUID = null;
-        oasis?.classList.add("hidden");
-        loginBox?.classList.remove("hidden");
-      }
     }
   });
 
-  // 🔐 Google Sign-In
+  // 🔐 Google Login
   signupBtn?.addEventListener("click", () => {
     signInWithPopup(auth, provider)
       .then(async (result) => {
@@ -98,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   });
 
-  // 🕊 Anonymous Guest Sign-In
+  // 🕊 Guest Login
   anonBtn?.addEventListener("click", () => {
     signInAnonymously(auth)
       .then(async (result) => {
