@@ -1,4 +1,4 @@
-/* 🌌 Nova Core — Focused Presence Layout */
+/* 🌌 Nova Core — Finalized CSS for Presence, Chat Input, Tooltip */
 
 body {
   margin: 0;
@@ -34,13 +34,10 @@ body::before {
   100% { transform: translateY(-200px); }
 }
 
-/* ✨ Ambient Glow */
 #aura-glow {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 600px;
-  height: 600px;
+  top: 50%; left: 50%;
+  width: 600px; height: 600px;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background: radial-gradient(circle, rgba(173, 216, 255, 0.15), transparent 70%);
@@ -55,52 +52,19 @@ body::before {
   50% { opacity: 0.4; }
 }
 
-/* 🪞 Tagline Top Display */
 .nova-tagline {
   text-align: center;
   font-style: italic;
   font-size: 0.85rem;
   line-height: 1.4;
   color: #aaccee;
-  opacity: 0.75;
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
+  opacity: 0.85;
+  max-width: 600px;
+  margin: 1.5rem auto 0.5rem;
   padding: 0 1rem;
+  z-index: 2;
 }
 
-/* 📎 Tooltip Version (Fixed Hover Style) */
-.nova-tagline-container {
-  position: fixed;
-  bottom: 100px;
-  left: 20px;
-  z-index: 999;
-}
-
-#info-button:hover + .nova-tagline-container .nova-tagline-tooltip {
-  display: block;
-  animation: fadeInTagline 0.6s ease forwards;
-}
-
-.nova-tagline-tooltip {
-  display: none;
-  font-style: italic;
-  font-size: 0.85rem;
-  line-height: 1.4;
-  color: #aaccee;
-  opacity: 0.8;
-  background: rgba(0, 0, 0, 0.6);
-  padding: 1rem 1.25rem;
-  border-radius: 12px;
-  max-width: 320px;
-  box-shadow: 0 0 10px rgba(255,255,255,0.1);
-}
-
-@keyframes fadeInTagline {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* 🗨️ Chat Area */
 .chat-stream {
   background: rgba(255, 255, 255, 0.03);
   padding: 2rem 1.5rem 10rem;
@@ -145,10 +109,8 @@ body::before {
   color: #aaccee;
   padding: 0.6rem 0 0.4rem 0.6rem;
   opacity: 0.85;
-  background: none;
 }
 
-/* ✏️ Input Area */
 #chat-controls {
   position: fixed;
   bottom: 1.5rem;
@@ -159,7 +121,7 @@ body::before {
   display: flex;
   gap: 0.75rem;
   align-items: center;
-  z-index: 999;
+  z-index: 9999;
   background: rgba(10, 10, 20, 0.85);
   padding: 1rem 1.25rem;
   border-radius: 16px;
@@ -199,12 +161,12 @@ body::before {
   transform: scale(1.05);
 }
 
-/* 🧭 Layout */
 #main-oasis {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  overflow: hidden;
+  overflow-y: auto;
+  position: relative;
 }
 
 #chat-container {
@@ -220,21 +182,6 @@ body::before {
   display: none !important;
 }
 
-/* ⬆️ Top Center Tagline */
-.nova-tagline {
-  text-align: center;
-  font-style: italic;
-  font-size: 0.85rem;
-  line-height: 1.4;
-  color: #aaccee;
-  opacity: 0.85;
-  max-width: 600px;
-  margin: 1.5rem auto 0.5rem;
-  padding: 0 1rem;
-  z-index: 2;
-}
-
-/* ❓ Hover Info in Bottom Right */
 #info-button {
   position: fixed;
   bottom: 1.5rem;
@@ -246,7 +193,7 @@ body::before {
   border-radius: 50%;
   font-size: 1.2rem;
   cursor: pointer;
-  z-index: 999;
+  z-index: 9999;
   backdrop-filter: blur(6px);
   border: 1px solid #ffffff22;
   transition: background 0.2s ease;
@@ -256,7 +203,6 @@ body::before {
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* 🪞 Tooltip Styling */
 .nova-tagline-tooltip {
   position: fixed;
   bottom: 4.5rem;
@@ -276,7 +222,7 @@ body::before {
   z-index: 998;
 }
 
-#info-button:hover + .nova-tagline-tooltip {
+#info-button:hover ~ .nova-tagline-tooltip {
   opacity: 1;
   pointer-events: auto;
 }
