@@ -61,13 +61,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const interval = setInterval(() => {
       if (i >= text.length) {
         clearInterval(interval);
-        setTimeout(() => {
-          outputBox.scrollTop = outputBox.scrollHeight;
-        }, 50);
+        p.scrollIntoView({ behavior: "smooth", block: "end" });
         return;
       }
       p.textContent += text[i++];
-      outputBox.scrollTop = outputBox.scrollHeight;
+      p.scrollIntoView({ behavior: "auto", block: "end" });
     }, 20);
   }
 
@@ -76,10 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
     p.className = "user-line";
     p.textContent = `You: ${text}`;
     outputBox.appendChild(p);
-    setTimeout(() => {
-      outputBox.scrollTop = outputBox.scrollHeight;
-    }, 30);
+    p.scrollIntoView({ behavior: "smooth", block: "end" });
   }
+
 
   function showTyping() {
     typingIndicator.classList.remove("hidden");

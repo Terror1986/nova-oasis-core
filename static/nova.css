@@ -171,11 +171,7 @@ body::before {
 
 #chat-container {
   flex-grow: 1;
-  overflow-y: auto;
-  scroll-behavior: smooth;
-  margin: 0 auto;
-  padding: 1.5rem 1rem 10rem;
-  max-width: 880px;
+  overflow-y: visible;
 }
 
 .hidden {
@@ -225,4 +221,11 @@ body::before {
 #info-button:hover ~ .nova-tagline-tooltip {
   opacity: 1;
   pointer-events: auto;
+}
+
+#nova-output {
+  flex-grow: 1;
+  overflow-y: auto;
+  max-height: calc(100vh - 300px); /* Adjust based on your header/input bar height */
+  scroll-behavior: smooth;
 }
