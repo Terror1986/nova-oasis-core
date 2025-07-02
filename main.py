@@ -114,7 +114,7 @@ def generate_nova():
     Context type: {context_type}
     Ritual: {ritual or "None"}
     Name: {name or "Unspoken"}
-    Trust level: {profile.get("trust_score", 0)}
+    Trust level: {data.get("trust_score", 0)}
     User input word count: {context_length}
 
     Recent memory:
