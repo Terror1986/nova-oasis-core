@@ -149,7 +149,7 @@ Only use their name when it adds meaning. Avoid repeated greetings. Allow the pr
                 {"role": "user", "content": user_prompt}
             ],
             temperature=0.92,
-            max_tokens=380
+            max_tokens=500
         )
 
         text = res.choices[0].message.content.strip()
