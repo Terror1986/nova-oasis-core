@@ -61,11 +61,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const interval = setInterval(() => {
       if (i >= text.length) {
         clearInterval(interval);
-        p.scrollIntoView({ behavior: "smooth", block: "end" });
+        // Wait until all rendering is done, then scroll
+        requestAnimationFrame(() => {
+          outputBox.scrollTop = outputBox.scrollHeight;
+        });
         return;
       }
+
       p.textContent += text[i++];
-      p.scrollIntoView({ behavior: "auto", block: "end" });
+      // Mid-typing scroll (optional)
+      outputBox.scrollTop = outputBox.scrollHeight;
     }, 20);
   }
 
