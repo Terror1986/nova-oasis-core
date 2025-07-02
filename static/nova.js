@@ -118,6 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const memory = chatLog.slice(-20);
     const profile = JSON.parse(localStorage.getItem("nova_profile") || "{}");
 
+    // 🔹 Prompt for name if not yet stored
     if (!profile.name) {
       const namePrompt = prompt("What name would you like Nova to remember you by?");
       if (namePrompt && namePrompt.trim().length > 0) {
@@ -129,8 +130,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const ritual = profile.ritual || "";
     const name = profile.name || "";
-    const uid = window.getNovaUID?.() || null;
-    const payload = { type, context, memory, ritual, name, uid };
+    const trust = profile.trust_score || 0;
+    const uid = window.getNovaUID?.() || "guest";
+
+    const payload = { type, context, memory, ritual, name, trust, uid };
 
     try {
       const res = await fetch("/api/nova", {
