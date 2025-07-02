@@ -135,10 +135,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const ritual = profile.ritual || "";
     const name = profile.name || "";
-    const trust = profile.trust_score || 0;
+    const trust_score = profile.trust_score || 0;
     const uid = window.getNovaUID?.() || "guest";
 
-    const payload = { type, context, memory, ritual, name, trust, uid };
+    const payload = { type, context, memory, ritual, name, trust_score, uid };
 
     try {
       const res = await fetch("/api/nova", {
