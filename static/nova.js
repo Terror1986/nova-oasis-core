@@ -1,4 +1,4 @@
-// nova_core.js — Focused Demo Build for Nova OASIS Core
+// nova_core.js — Finalized for Presence: Auto-scroll + Ambient Fix
 
 console.log("[Nova.js] Loaded");
 
@@ -15,7 +15,6 @@ window.addEventListener("beforeunload", () => {
   ambientAudio.currentTime = 0;
 });
 
-// 💡 Wait for DOM before binding anything
 document.addEventListener("DOMContentLoaded", () => {
   console.log("[Nova.js] DOM fully loaded");
 
@@ -57,11 +56,16 @@ document.addEventListener("DOMContentLoaded", () => {
     p.className = "nova-line";
     p.textContent = "Nova: ";
     outputBox.appendChild(p);
-    outputBox.scrollTop = outputBox.scrollHeight;
 
     let i = 0;
     const interval = setInterval(() => {
-      if (i >= text.length) return clearInterval(interval);
+      if (i >= text.length) {
+        clearInterval(interval);
+        setTimeout(() => {
+          outputBox.scrollTop = outputBox.scrollHeight;
+        }, 50);
+        return;
+      }
       p.textContent += text[i++];
       outputBox.scrollTop = outputBox.scrollHeight;
     }, 20);
@@ -72,7 +76,9 @@ document.addEventListener("DOMContentLoaded", () => {
     p.className = "user-line";
     p.textContent = `You: ${text}`;
     outputBox.appendChild(p);
-    outputBox.scrollTop = outputBox.scrollHeight;
+    setTimeout(() => {
+      outputBox.scrollTop = outputBox.scrollHeight;
+    }, 30);
   }
 
   function showTyping() {
@@ -98,16 +104,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     localStorage.setItem("nova_profile", JSON.stringify(profile));
 
-    // ✅ Always reflect, even for guests
-     const uid = window.getNovaUID?.() || "guest";
-      fetch("/api/reflect", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...entry, uid })
-      }).catch((err) => {
-        console.warn("[Nova.js] Failed to reflect:", err);
-      });
-    }
+    const uid = window.getNovaUID?.() || "guest";
+    fetch("/api/reflect", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...entry, uid })
+    }).catch((err) => {
+      console.warn("[Nova.js] Failed to reflect:", err);
+    });
+  }
 
   async function generateNovaLine(type = "message", context = "") {
     if (!context.trim()) return;
@@ -116,7 +121,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const memory = chatLog.slice(-20);
     const profile = JSON.parse(localStorage.getItem("nova_profile") || "{}");
 
-    // 🔹 Ask for name if not set
     if (!profile.name) {
       const namePrompt = prompt("What name would you like Nova to remember you by?");
       if (namePrompt && namePrompt.trim().length > 0) {
@@ -161,7 +165,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Attach send handler
   const send = (e) => {
     e?.preventDefault();
     const text = input.value.trim();
@@ -178,4 +181,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   console.log("[Nova.js] Input handlers ready.");
+
+  // 🔊 Fix autoplay audio (must be resumed on user gesture)
+  document.body.addEventListener("click", () => {
+    if (ambientAudio.paused) {
+      ambientAudio.play().catch(() => {
+        console.warn("[Nova.js] Audio still blocked after click.");
+      });
+    }
+  }, { once: true });
 });
