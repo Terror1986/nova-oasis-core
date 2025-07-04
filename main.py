@@ -11,13 +11,15 @@ from utils.log_to_render_chat import log_to_render_chat
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-# 🔥 Load Firebase credentials from local file
-firebase_path = "firebase.json"
-if not os.path.exists(firebase_path):
-    raise RuntimeError("Missing firebase.json file!")
+# 🔥 Load Firebase credentials from FIREBASE_JSON env var
+firebase_json = os.getenv("FIREBASE_JSON")
+if not firebase_json:
+    raise RuntimeError("Missing FIREBASE_JSON in environment!")
 
-with open(firebase_path, "r") as f:
-    cred_dict = json.load(f)
+cred_dict = json.loads(firebase_json)
+if "private_key" in cred_dict and "\\n" in cred_dict["private_key"]:
+    cred_dict["private_key"] = cred_dict["private_key"].replace("\\n", "\n")
+
 
 cred = credentials.Certificate(cred_dict)
 firebase_admin.initialize_app(cred)
